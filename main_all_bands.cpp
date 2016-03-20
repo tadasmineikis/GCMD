@@ -45,12 +45,10 @@ int main(int argc, char *argv[])
 	gsl_rng* random_number_gsl = gsl_rng_alloc (gsl_type);
 	gsl_rng_set(random_number_gsl, conf->RANDOM_GEN_SEED);
 
-	cerr<<"ENETERING LOOP..."<<endl;
 	for(int cur_ssp_index=0; cur_ssp_index<conf->ssp_num_of_ssp; ++cur_ssp_index)
 	{
 		for(int cur_ssp_copy=0; cur_ssp_copy<conf->ssp_copies[cur_ssp_index]; ++cur_ssp_copy)
 		{
-			cerr<<"CALLING lower mas cut..."<<endl;
 			double lower_mass_cut = cls->set_lower_mass_limit(conf, cur_ssp_index);
 			double fcur_cluster_mass, start_rnd, rnd_ratio;
 			cls->set_stars_gen_limits(lower_mass_cut, start_rnd, rnd_ratio, fcur_cluster_mass);
@@ -58,9 +56,6 @@ int main(int argc, char *argv[])
 			std::vector<float> vSTARS;
 			std::vector<float> vBINARIES;
 
-
-			cerr<<"GENERATING stars..."<<endl;
-			cerr<<"BINNARY MASS FRACTION: " << conf->BINARY_FRACTION <<endl;
 			if(conf->sampling_method.at("stochastic"))
 			{
 				//cerr<<start_rnd << " " << rnd_ratio << endl;

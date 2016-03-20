@@ -4,13 +4,13 @@ DEBUG 		= -g3 -ggdb3
 OPTIM 		= -O2 -funroll-loops -fvariable-expansion-in-unroller -fopenmp -march=native
 USE_FLAGS       = -Wall $(OPTIM)
 OBJS  		= main_all_bands.o iso.o imf.o lib.o configFile.o clust.o imf_pflamm.o
-EXE   		= gCMD_0.21.4_acs_BIN
+EXE   		= gCMD_0.21.5
 INCLUDE         = 
-RUN_DIR		= .
+RUN_DIR		= /home/tadas/RUN_leoA/
 LIB     	= -larmadillo -lgsl -lgomp -lgslcblas
 
 
-all: gcmd
+all: gcmd | move
 
 gen: generator move_gen
 
@@ -56,6 +56,6 @@ zip:
 arch: tar zip
 
 move:
-	mv -if $(EXE) $(RUN_DIR)
+	ln -s $(CURDIR)/$(EXE) $(RUN_DIR)$(EXE)
 
 
