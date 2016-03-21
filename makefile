@@ -56,6 +56,6 @@ zip:
 arch: tar zip
 
 move:
-	ln -s $(CURDIR)/$(EXE) $(RUN_DIR)$(EXE)
+	ln -sf $(CURDIR)/$(EXE) $(RUN_DIR)$(EXE)
 
 
