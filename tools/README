@@ -1,0 +1,12 @@
+USAGE:
+
+python    pavoda_read_v3.py    PADOVA_ISOCHRONE_FILE_NAME  COLUMNS_NAMES   OUPUT_FILE_NAME
+
+PADOVA_ISOCHRONE_FILE_NAME - padova isochrone file from the website http://stev.oapd.inaf.it/cmd
+COLUMNS_NAMES              - the filters you would like to use, the first column MUST be M_ini
+OUPUT_FILE_NAME            - name of the file ready to be used in gcmd package
+
+TROUBLESHOOTING:
+Script is tuned to work for the padova cmd version 2.5. If structure of the file changes significantly,
+the most likely part to break in the script is "CLEANER". This will have to be modified.
+
