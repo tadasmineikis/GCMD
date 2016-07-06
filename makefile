@@ -1,4 +1,4 @@
-CC    		= g++
+CC    		?= g++
 CFLAGS		= -c -Wall $(INCLUDE) -std=gnu++11
 DEBUG 		= -g3 -ggdb3
 OPTIM 		= -O2 -funroll-loops -fvariable-expansion-in-unroller -fopenmp -march=native
@@ -6,11 +6,11 @@ USE_FLAGS       = -Wall $(OPTIM)
 OBJS  		= main_all_bands.o iso.o imf.o lib.o configFile.o clust.o imf_pflamm.o
 EXE   		= gCMD_0.21.5
 INCLUDE         = 
-RUN_DIR		= /home/tadas/RUN_leoA/
+RUN_DIR		= 
 LIB     	= -larmadillo -lgsl -lgomp -lgslcblas
 
 
-all: gcmd | move
+all: gcmd
 
 gen: generator move_gen
 
