@@ -1,45 +1,56 @@
-CC    		?= g++
+CXX    		?= g++
 CFLAGS		= -c -Wall $(INCLUDE) -std=gnu++11
 DEBUG 		= -g3 -ggdb3
 OPTIM 		= -O2 -funroll-loops -fvariable-expansion-in-unroller -fopenmp -march=native
 USE_FLAGS       = -Wall $(OPTIM)
-OBJS  		= main_all_bands.o iso.o imf.o lib.o configFile.o clust.o imf_pflamm.o
-EXE   		= gCMD_0.21.5
+OBJS_UBV	= main_all_bands.o iso.o imf.o lib.o configFile_ubv.o clust_ubv.o imf_pflamm.o
+OBJS_ACS	= main_all_bands.o iso.o imf.o lib.o configFile_acs.o clust_acs.o imf_pflamm.o
+EXE_UBV		= gCMD_0.21.5_ubv
+EXE_ACS		= gCMD_0.21.5_acs
 INCLUDE         = 
 RUN_DIR		= 
 LIB     	= -larmadillo -lgsl -lgomp -lgslcblas
 
 
-all: gcmd
+all: gcmd_ubv gcmd_acs
 
 gen: generator move_gen
 
-gcmd: $(OBJS)
-	$(CC)  $(USE_FLAGS) $(LFLAGS) -o $(EXE) $(OBJS) $(LIB)
+gcmd_ubv: $(OBJS_UBV)
+	$(CXX)  $(USE_FLAGS) $(LFLAGS) -o $(EXE_UBV) $(OBJS_UBV) $(LIB)
+
+gcmd_acs: $(OBJS_ACS)
+	$(CXX)  $(USE_FLAGS) $(LFLAGS) -o $(EXE_ACS) $(OBJS_ACS) $(LIB)
 
 main_all_bands.o: iso.h imf.h main_all_bands.cpp lib.h configFile.h clust.h
-	$(CC) $(CFLAGS) $(USE_FLAGS) main_all_bands.cpp
+	$(CXX) $(CFLAGS) $(USE_FLAGS) main_all_bands.cpp
 
 iso.o: iso.cpp iso.h lib.h
-	$(CC) $(CFLAGS) $(USE_FLAGS) iso.cpp
+	$(CXX) $(CFLAGS) $(USE_FLAGS) iso.cpp
 
 lib.o:	lib.cpp lib.h
-	$(CC) $(CFLAGS) $(USE_FLAGS) lib.cpp
+	$(CXX) $(CFLAGS) $(USE_FLAGS) lib.cpp
 
 imf.o:	imf.h lib.h imf.cpp
-	$(CC) $(CFLAGS) $(USE_FLAGS) imf.cpp
-
-configFile.o: configFile.h lib.h configFile.cpp filters.h
-	$(CC) $(CFLAGS) $(USE_FLAGS) configFile.cpp
+	$(CXX) $(CFLAGS) $(USE_FLAGS) imf.cpp
 
 fileio.o: fileio.h lib.h fileio.cpp
-	$(CC) $(CFLAGS) $(USE_FLAGS) fileio.cpp
+	$(CXX) $(CFLAGS) $(USE_FLAGS) fileio.cpp
 
-clust.o: clust.h imf.h configFile.h iso.h filters.h clust.cpp
-	$(CC) $(CFLAGS) $(USE_FLAGS) clust.cpp
+configFile_ubv.o: configFile.h lib.h configFile.cpp filters_UBV.h
+	$(CXX) $(CFLAGS) $(USE_FLAGS) configFile.cpp -o configFile_ubv.o
+
+configFile_acs.o: configFile.h lib.h configFile.cpp filters_ACS.h
+	$(CXX) $(CFLAGS) $(USE_FLAGS) configFile.cpp -o configFile_acs.o
+
+clust_ubv.o: clust.h imf.h configFile.h iso.h filters_UBV.h clust.cpp
+	$(CXX) $(CFLAGS) $(USE_FLAGS) clust.cpp -o clust_ubv.o
+
+clust_acs.o: clust.h imf.h configFile.h iso.h filters_ACS.h clust.cpp
+	$(CXX) $(CFLAGS) $(USE_FLAGS) clust.cpp -o clust_acs.o
 
 imf_pflamm.o: imf_pflamm.h imf_pflamm.c
-	$(CC) $(CFLAGS) $(USE_FLAGS) imf_pflamm.c
+	$(CXX) $(CFLAGS) $(USE_FLAGS) imf_pflamm.c
 #########################################
 # utilities
 #########################################

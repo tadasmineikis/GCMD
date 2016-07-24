@@ -1,5 +1,5 @@
-#define ACS 0
-#define UBV 1
+#define ACS 1
+#define UBV 0
 
 #ifndef FIRST_TIME_FILTERS_H
 #define FIRST_TIME_FILTERS_H
@@ -9,10 +9,11 @@ enum filters
 {
 	enum_mass_i,
 	enum_mass_c,
-
+	enum_F435W,
+	enum_F555W,
 	enum_F606W,
+	enum_F775W,
 	enum_F814W,  	    	   	  
-
 	enum_LAST
 };
 #elif UBV == 1
@@ -41,8 +42,10 @@ string enum_filter_names[] =
 {
 	"mass_i",
 	"mass",
-
+	"F435W",
+	"F555W",
 	"F606W",
+	"F775W",
 	"F814W"
 
 };
