@@ -653,7 +653,7 @@ double imf_dice_star_cl(IMF *imf,double r)
 {
   int i;
   double y,z,x;
-  double y_i,aux,aux1,aux2;
+  double y_i,aux;//,aux1,aux2; <-- NOT ORIGINAL EDDITION
   x = r * (imf->lamda)[imf->n];
   y = 0;
   for(i=1;i<=imf->n;i++)
@@ -663,8 +663,9 @@ double imf_dice_star_cl(IMF *imf,double r)
 	break;
       z = aux/(imf->psi[i]*imf->k);
       z += (*(imf->F[i]))(imf->m[i-1],imf->a_F[i]);
-      aux1 = gamma_closed(x,imf->lamda[i-1],imf->lamda[i]);
-      aux2 = (*(imf->invF[i]))(z,imf->a_invF[i]);
+      //NOT ORIGINAL EDDITION, toremove warning during compilation
+      //aux1 = gamma_closed(x,imf->lamda[i-1],imf->lamda[i]);
+      //aux2 = (*(imf->invF[i]))(z,imf->a_invF[i]);
       y_i = gamma_closed(x,imf->lamda[i-1],imf->lamda[i])
 	* (*(imf->invF[i]))(z,imf->a_invF[i]);
       y += y_i;
