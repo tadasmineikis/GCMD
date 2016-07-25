@@ -3,8 +3,8 @@ CFLAGS		= -c -Wall $(INCLUDE) -std=gnu++11
 DEBUG 		= -g3 -ggdb3
 OPTIM 		= -O2 -funroll-loops -fvariable-expansion-in-unroller -fopenmp -march=native
 USE_FLAGS   = -Wall $(OPTIM)
-OBJS_UBV	= main_all_bands.o iso.o imf.o lib.o configFile_ubv.o clust_ubv.o imf_pflamm.o
-OBJS_ACS	= main_all_bands.o iso.o imf.o lib.o configFile_acs.o clust_acs.o imf_pflamm.o
+OBJS_UBV	= main_all_bands.o iso_ubv.o imf.o lib.o configFile_ubv.o clust_ubv.o imf_pflamm.o
+OBJS_ACS	= main_all_bands.o iso_acs.o imf.o lib.o configFile_acs.o clust_acs.o imf_pflamm.o
 EXE_UBV		= gCMD_0.21.5_ubv
 EXE_ACS		= gCMD_0.21.5_acs
 INCLUDE     = 
@@ -25,8 +25,11 @@ gcmd_acs: $(OBJS_ACS)
 main_all_bands.o: iso.h imf.h main_all_bands.cpp lib.h configFile.h clust.h
 	$(CXX) $(CFLAGS) $(USE_FLAGS) main_all_bands.cpp
 
-iso.o: iso.cpp iso.h lib.h
-	$(CXX) $(CFLAGS) $(USE_FLAGS) iso.cpp
+iso_ubv.o: iso.cpp iso.h lib.h
+	$(CXX) $(CFLAGS) $(USE_FLAGS) -DFILTERS_UBV iso.cpp -o iso_ubv.o
+
+iso_acs.o: iso.cpp iso.h lib.h
+	$(CXX) $(CFLAGS) $(USE_FLAGS) -DFILTERS_ACS iso.cpp -o iso_acs.o
 
 lib.o:	lib.cpp lib.h
 	$(CXX) $(CFLAGS) $(USE_FLAGS) lib.cpp
@@ -37,16 +40,16 @@ imf.o:	imf.h lib.h imf.cpp
 fileio.o: fileio.h lib.h fileio.cpp
 	$(CXX) $(CFLAGS) $(USE_FLAGS) fileio.cpp
 
-configFile_ubv.o: configFile.h lib.h configFile.cpp filters_UBV.h
+configFile_ubv.o: configFile.h lib.h configFile.cpp filters.h
 	$(CXX) $(CFLAGS) $(USE_FLAGS) -DFILTERS_UBV configFile.cpp -o configFile_ubv.o
 
-configFile_acs.o: configFile.h lib.h configFile.cpp filters_ACS.h
+configFile_acs.o: configFile.h lib.h configFile.cpp filters.h
 	$(CXX) $(CFLAGS) $(USE_FLAGS) -DFILTERS_ACS configFile.cpp -o configFile_acs.o
 
-clust_ubv.o: clust.h imf.h configFile.h iso.h filters_UBV.h clust.cpp
+clust_ubv.o: clust.h imf.h configFile.h iso.h filters.h clust.cpp
 	$(CXX) $(CFLAGS) $(USE_FLAGS) -DFILTERS_UBV clust.cpp -o clust_ubv.o
 
-clust_acs.o: clust.h imf.h configFile.h iso.h filters_ACS.h clust.cpp
+clust_acs.o: clust.h imf.h configFile.h iso.h filters.h clust.cpp
 	$(CXX) $(CFLAGS) $(USE_FLAGS) -DFILTERS_ACS clust.cpp -o clust_acs.o
 
 imf_pflamm.o: imf_pflamm.h imf_pflamm.c

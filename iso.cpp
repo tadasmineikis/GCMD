@@ -4,11 +4,12 @@
 #include <float.h>
 #include <vector>
 #include <armadillo>
-#define FIRST_TIME_FILTERS_N_H
 
 #include "iso.h"
 #include "lib.h"
 #include "fileio.h"
+
+#define FIRST_TIME_FILTERS_N_H
 #include "filters.h"
 
 #define YY_col 17
