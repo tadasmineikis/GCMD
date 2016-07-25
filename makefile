@@ -2,12 +2,12 @@ CXX    		?= g++
 CFLAGS		= -c -Wall $(INCLUDE) -std=gnu++11
 DEBUG 		= -g3 -ggdb3
 OPTIM 		= -O2 -funroll-loops -fvariable-expansion-in-unroller -fopenmp -march=native
-USE_FLAGS       = -Wall $(OPTIM)
+USE_FLAGS   = -Wall $(OPTIM)
 OBJS_UBV	= main_all_bands.o iso.o imf.o lib.o configFile_ubv.o clust_ubv.o imf_pflamm.o
 OBJS_ACS	= main_all_bands.o iso.o imf.o lib.o configFile_acs.o clust_acs.o imf_pflamm.o
 EXE_UBV		= gCMD_0.21.5_ubv
 EXE_ACS		= gCMD_0.21.5_acs
-INCLUDE         = 
+INCLUDE     = 
 RUN_DIR		= 
 LIB     	= -larmadillo -lgsl -lgomp -lgslcblas
 
@@ -38,16 +38,16 @@ fileio.o: fileio.h lib.h fileio.cpp
 	$(CXX) $(CFLAGS) $(USE_FLAGS) fileio.cpp
 
 configFile_ubv.o: configFile.h lib.h configFile.cpp filters_UBV.h
-	$(CXX) $(CFLAGS) $(USE_FLAGS) configFile.cpp -o configFile_ubv.o
+	$(CXX) $(CFLAGS) $(USE_FLAGS) -DFILTERS_UBV configFile.cpp -o configFile_ubv.o
 
 configFile_acs.o: configFile.h lib.h configFile.cpp filters_ACS.h
-	$(CXX) $(CFLAGS) $(USE_FLAGS) configFile.cpp -o configFile_acs.o
+	$(CXX) $(CFLAGS) $(USE_FLAGS) -DFILTERS_ACS configFile.cpp -o configFile_acs.o
 
 clust_ubv.o: clust.h imf.h configFile.h iso.h filters_UBV.h clust.cpp
-	$(CXX) $(CFLAGS) $(USE_FLAGS) clust.cpp -o clust_ubv.o
+	$(CXX) $(CFLAGS) $(USE_FLAGS) -DFILTERS_UBV clust.cpp -o clust_ubv.o
 
 clust_acs.o: clust.h imf.h configFile.h iso.h filters_ACS.h clust.cpp
-	$(CXX) $(CFLAGS) $(USE_FLAGS) clust.cpp -o clust_acs.o
+	$(CXX) $(CFLAGS) $(USE_FLAGS) -DFILTERS_ACS clust.cpp -o clust_acs.o
 
 imf_pflamm.o: imf_pflamm.h imf_pflamm.c
 	$(CXX) $(CFLAGS) $(USE_FLAGS) imf_pflamm.c

@@ -69,6 +69,7 @@ int iso_class_main::find_nearest_iso(float z)
 float iso_class_main::find_limiting_lower_mass(float ssp_age, float ssp_z, float lim_value, int lim_filter)
 {
     int nearest_z = find_nearest_iso(ssp_z); //index of nearest isochrone
+    
     return iso[nearest_z]->find_lower_mass(lim_value, lim_filter, ssp_age);
 }
 
