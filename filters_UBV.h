@@ -9,10 +9,12 @@ enum filters
 {
 	enum_mass_i,
 	enum_mass_c,
-
+	enum_F435W,
+	enum_F555W,
 	enum_F606W,
+	enum_F625W,
+	enum_F775W,
 	enum_F814W,  	    	   	  
-
 	enum_LAST
 };
 #elif UBV == 1
@@ -41,8 +43,11 @@ string enum_filter_names[] =
 {
 	"mass_i",
 	"mass",
-
+	"F435W",
+	"F555W",
 	"F606W",
+	"F625W",
+	"F775W",
 	"F814W"
 
 };

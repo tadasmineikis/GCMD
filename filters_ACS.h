@@ -12,6 +12,7 @@ enum filters
 	enum_F435W,
 	enum_F555W,
 	enum_F606W,
+	enum_F625W,
 	enum_F775W,
 	enum_F814W,  	    	   	  
 	enum_LAST
@@ -45,6 +46,7 @@ string enum_filter_names[] =
 	"F435W",
 	"F555W",
 	"F606W",
+	"F625W",
 	"F775W",
 	"F814W"
 
